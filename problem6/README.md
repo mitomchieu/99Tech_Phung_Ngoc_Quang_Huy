@@ -54,20 +54,7 @@ This module is responsible for managing the live scoreboard on the website. It p
   }
   ```
 
-### 3. **Stream Scoreboard Updates**
-
-- **Endpoint:** `GET /api/v1/scores/stream`
-- **Description:** Provides a server-sent events (SSE) stream for real-time scoreboard updates.
-- **Response Stream Format:**
-  ```json
-  {
-    "userId": "<user-id>",
-    "score": <integer>,
-    "rank": <integer>
-  }
-  ```
-
-## Security
+### Security
 
 1. **Authentication:**
 
@@ -93,7 +80,7 @@ This module is responsible for managing the live scoreboard on the website. It p
 1. **Frontend:**
 
    - Sends API requests to update scores and fetch top scores.
-   - Listens to SSE stream for real-time updates.
+   - Listens to Socket stream for real-time updates.
 2. **Backend:**
 
    - Validates and processes incoming requests.
@@ -113,14 +100,13 @@ This module is responsible for managing the live scoreboard on the website. It p
    - Ensures `scoreIncrement` is within the allowed range.
 4. **Database Update:** Updates the user's score in the database.
 5. **Notify Clients:**
-   - Publishes the updated scores to the SSE stream.
+   - Publishes the updated scores to the Socket stream.
    - Sends a response back to the frontend.
 6. **Frontend Update:** Updates the live scoreboard using the received data.
 
 ## Implementation Notes
 
-1. Use WebSocket as an alternative to SSE for bi-directional communication if required in the future.
-2. Cache the top 10 scores to reduce database load for frequent queries.
+1. Cache the top 10 scores to reduce database load for frequent queries.
 3. Monitor and log suspicious activity to identify potential abuse.
 
 ## Future Improvements
